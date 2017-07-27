@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/tab_image.png') }}">
+
+<html>
+<style> #toHide {} </style>
+	<head>
+		<title>Update All Files</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="static/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="static/assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="static/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+		<div id="loading"></div>
+		<div id="content">
+
+			<div id="wrapper">
+
+				<!-- Header -->
+				<header id="header">
+					<div class="inner">
+
+						<!-- Logo -->
+							<a href="seeing-taste" class="logo">
+								<span class="symbol"><img src="static/images/tab_image.png" alt="" /></span><span class="title">{{title}}</span>
+							</a>
+
+						<!-- Nav -->
+							<nav>
+								<ul>
+									<li><a href="#menu">Menu</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="seeing-taste">Home</a></li>
+						<li><a href="https://docs.google.com/spreadsheets/d/1PcohvCtv_QMzwRYgR6bVXYQw3qPEm5X4fd0QWQ504PY/edit#gid=0" target="_blank">Update Lexicon</a></li>
+						<li><a href="update-all">Update All Files</a></li>						<li><a href="generic">Consequat dolor</a></li>
+						<li><a href="elements">Elements</a></li>
+					</ul>
+				</nav>
+                <!-- Main -->
+					<div id="main">
+
+						<div class="inner">
+							<h1>Taster Tool</h1>
+							<!-- Text -->
+								<section>
+
+									<h3>Click on a button to update those files. Note: these will all take a few minutes</h3>
+                                    <hr />
+
+                                    <div class="12u$"><span class="image fit"><img src="static/images/dash11.png" alt="" /></span></div>
+                                    <hr />
+								</section>
+
+								<section>
+									</br>
+
+									<div class="row uniform">
+
+										<ul class="actions">
+											<li><a href="/taster/updating" class="button icon fa-upload" onclick="loading();">Update Taster Files</a></li>
+										</ul>
+
+										<ul class="actions">
+											<li><a href="/new-beer/updating" class="button icon fa-upload" onclick="loading();">Update New Beer Files</a></li>
+										</ul>
+
+										<ul class="actions">
+											<li><a href="#" class="button icon fa-upload" onclick="loading();">Update Panel Files</a></li>
+										</ul>
+									</div>
+								</section>
+								<hr />
+
+								<div class="12u$"><span class="image fit"><img src="static/images/dash2.png" alt="" /></span></div>
+								<hr />
+
+								<section>
+
+								</section>
+						</div> <!-- end inner -->
+					</div> <!-- end main -->
+				</div> <!-- end wrapper -->
+			</div> <!-- end content -->
+
+
+
+
+		<!-- Scripts -->
+		<script src="static/assets/js/jquery.min.js"></script>
+		<script src="static/assets/js/skel.min.js"></script>
+		<script src="static/assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="static/assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="static/assets/js/main.js"></script>
+		<script type="text/javascript">// <![CDATA[
+				function loading(){
+					$("#loading").show();
+					$("#content").hide();
+				}
+		// ]]></script>
+
+		<script>
+		function hideText() {
+			var x = document.getElementById('toHide');
+			if (x.style.display === 'none') {
+				x.style.display = 'block';
+			} else {
+				x.style.display = 'none';
+			}
+		}
+				</script>
+
+
+	</body>
+</html>

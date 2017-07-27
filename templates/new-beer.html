@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/tab_image.png') }}">
+
+
+<html>
+	<head>
+		<title>New Beer Tool</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="static/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="static/assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="static/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+		<div id="loading"></div>
+		<div id="content">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+				<header id="header">
+					<div class="inner">
+
+					<!-- Logo -->
+						<a href="seeing-taste" class="logo">
+							<span class="symbol"><img src="static/images/tab_image.png" alt="" /></span><span class="title">{{title}}</span>
+						</a>
+
+					<!-- Nav -->
+						<nav>
+							<ul>
+								<li><a href="#menu">Menu</a></li>
+							</ul>
+						</nav>
+
+					</div>
+				</header>
+
+			<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="seeing-taste">Home</a></li>
+						<li><a href="https://docs.google.com/spreadsheets/d/1PcohvCtv_QMzwRYgR6bVXYQw3qPEm5X4fd0QWQ504PY/edit#gid=0" target="_blank">Update Lexicon</a></li>
+						<li><a href="update-all">Update All Files</a></li>						<li><a href="generic">Consequat dolor</a></li>
+						<li><a href="elements">Elements</a></li>
+					</ul>
+				</nav>
+
+                <!-- Main -->
+				<div id="main">
+					<div class="inner">
+						<h1>New Beer Tool</h1>
+						<!-- Text -->
+							<section>
+								<h3>Enter two beers to compare, a beer search term, or select a <i>Topic</i>, your new beer brand visualizations await. <a href="https://docs.google.com/presentation/d/1wsp6U769EpOgdivRqK1wJoeC-cKG-U8nXtWm4VYALr0/edit?usp=sharing" target="_blank">Need Help or Instructions?</a>
+								</h3>
+
+                                <hr />
+                                <div class="12u$"><span class="image fit"><img src="static/images/dash11.png" alt="" /></span>
+								</div>
+                                <hr />
+							</section>
+
+                        <!-- Form -->
+							<section>
+								<h3>Compare Two Beers Using the Drop Down:</h3>
+								<form method="post" action="/new-beer-plots">
+
+
+								<div class="row uniform">
+									<h3>Beer 1:</h3>
+
+									<div class="select-wrapper">
+									<select name="highlight" id="highlight">
+										{% for x in beer_names %}
+										<option value="{{ x }}"
+										{% if loop.first %} SELECTED{% endif %}
+										>{{ x }}</option>
+										{% endfor %}
+									</select>
+									</div>
+									<h3>Beer 2: </h3>
+
+
+									<div class="select-wrapper">
+									<select name="highlight2" id="highlight2">
+										{% for x in beer_names %}
+										<option value="{{ x }}"
+										{% if loop.first %} SELECTED{% endif %}
+										>{{ x }}</option>
+										{% endfor %}
+									</select>
+									</div>
+								</div>
+
+								</br>
+								<h3>Or Find all beers associated with a search term:</h3>
+
+								<div class="row uniform">
+									<div class="5u 12u$(xsmall)">
+										<input type="text" name="beer_word" id="beer_word" value="" placeholder="Beer Search Term (try 'cherry')"/>
+									</div>
+								</div>
+
+								</br>
+								<h3>Or look at all beers in a topic:</h3>
+
+								<div class="row uniform">
+                                    <div class="2u 2u$(small)">
+                                        <input type="radio" id="0" name="option" value="0">
+                                        <label for="0">Topic 1</label>
+                                    </div>
+									<div class="2u 2u$(small)">
+										<input type="radio" id="1" name="option" value="1">
+										<label for="1">Topic 2</label>
+									</div>
+									<div class="2u 2u$(small)">
+                                        <input type="radio" id="2" name="option" value="2">
+                                        <label for="2">Topic 3</label>
+                                    </div>
+
+                                    <div class="2u 2u$(small)">
+                                        <input type="radio" id="3" name="option" value="3">
+                                        <label for="3">Topic 4</label>
+                                    </div>
+                                    <div class="2u$ 2u$(small)">
+                                        <input type="radio" id="4" name="option" value="4">
+                                        <label for="4">Topic 5</label>
+                                    </div>
+								</div>
+
+								</br>
+
+								<div class="12u$">
+									<ul class="actions">
+										<li><input type="submit" value="Go-Go-Gadget Plot" class="special" onclick="loading();"/></li>
+										<li><input type="reset" value="Reset" /></li>
+									</ul>
+								</div>
+
+								</form>
+							</section>
+
+					</div>  <!-- close inner -->
+				</div> <!-- close main -->
+			</div> <!-- close wrapper -->
+		</div> <!-- close content -->
+
+        <!-- Scripts -->
+			<script src="static/assets/js/jquery.min.js"></script>
+			<script src="static/assets/js/skel.min.js"></script>
+			<script src="static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="static/assets/js/main.js"></script>
+			<script type="text/javascript">
+					function loading(){
+						$("#loading").show();
+						$("#content").hide();}
+			</script>
+	</body>
+</html>

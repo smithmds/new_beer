@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/tab_image.png') }}">
+
+<html>
+	<head>
+		<title>Export Data</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="static/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="static/assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="static/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+	<!-- Wrapper -->
+		<div id="wrapper">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+
+					<!-- Logo -->
+						<a href="seeing-taste" class="logo">
+							<span class="symbol"><img src="static/images/tab_image.png" alt="" /></span><span class="title">{{title}}</span>
+						</a>
+
+					<!-- Nav -->
+						<nav>
+							<ul>
+								<li><a href="#menu">Menu</a></li>
+							</ul>
+						</nav>
+
+				</div>
+			</header>
+
+			<!-- Menu -->
+			<nav id="menu">
+				<h2>Menu</h2>
+				<ul>
+					<li><a href="seeing-taste">Home</a></li>
+					<li><a href="https://docs.google.com/spreadsheets/d/1PcohvCtv_QMzwRYgR6bVXYQw3qPEm5X4fd0QWQ504PY/edit#gid=0" target="_blank">Update Lexicon</a></li>
+					<li><a href="update-all">Update All Files</a></li>					<li><a href="generic">Consequat dolor</a></li>
+					<li><a href="elements">Elements</a></li>
+				</ul>
+			</nav>
+            <!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<h1>Export Data</h1>
+					<!-- Text -->
+						<section>
+
+							<h3>Limit the data as you wish, your custom .CSV file awaits. This is a test trial of this feature. If its useful or you want more options let Jan know!</h3>
+                            <hr />
+
+                            <div class="12u$"><span class="image fit"><img src="static/images/dash2.png" alt="" /></span></div>
+                            <hr />
+					</section>
+
+                        <!-- Form -->
+					<section>
+						<form method="post" action="/export/file">
+
+						<div class="row uniform">
+							<h3>Brewery</h3>
+	                        <div class="2u 12u$(small)">
+	                            <input type="radio" id="foco" name="option1" value="foco" checked>
+	                            <label for="foco">Fort Collins</label>
+	                        </div>
+	                        <div class="2u 12u$(small)">
+	                            <input type="radio" id="ash" name="option1" value="ash">
+	                            <label for="ash">Ashville</label>
+	                        </div>
+	                        <div class="2u$ 12u$(small)">
+	                            <input type="radio" id="both" name="option1", value="both">
+	                            <label for="both">Both</label>
+	                        </div>
+	                    </div>
+
+						<br/>
+						<div class="row uniform">
+							<h3>Validated</h3>
+	                        <div class="2u 12u$(small)">
+	                            <input type="radio" id="yes" name="option2" value="yes" checked>
+	                            <label for="yes">Yes</label>
+	                        </div>
+	                        <div class="2u 12u$(small)">
+	                            <input type="radio" id="no" name="option2" value="no">
+	                            <label for="no">No</label>
+	                        </div>
+	                        <div class="2u$ 12u$(small)">
+	                            <input type="radio" id="both2" name="option2" value="both">
+	                            <label for="both2">Both</label>
+	                        </div>
+	                    </div>
+
+						<div class="row uniform">
+							<h3>Brand</h3>
+							<div class="2u 12u$(xsmall)">
+								<input type="text" name="brand1" id="brand1" value="" placeholder="All" />
+							</div>
+							<h3>and</h3>
+							<div class="2u 12u$(xsmall)">
+								<input type="text" name="brand2" id="brand2" value="" placeholder="(Optional)"/>
+							</div>
+							<p><b>Example Options:</b> {{brand_options}}</p>
+						</div>
+
+						<div class="row uniform">
+							<h3>Test Type</h3>
+							<div class="2u 12u$(xsmall)">
+								<input type="text" name="test1" id="test1" value="" placeholder="All" />
+							</div>
+
+							<h3>and</h3>
+							<div class="2u 12u$(xsmall)">
+								<input type="text" name="test2" id="test2" value="" placeholder="(Optional)" />
+							</div>
+							<p><b>Options:</b> {{test_options}}</p>
+						</div>
+
+						<div class="row uniform">
+
+							<h3>Date Range</h3>
+							<div class="1u 12u$(small)">
+								<input type="radio" id="all" name="option3" value="all" checked/>
+								<label for="all">All</label>
+							</div>
+							<div class="1u 12u$(small)">
+								<input type="radio" id="less" name="option3" value="less"/>
+								<label for="less"><</label>
+							</div>
+							<div class="1u 12u$(small)">
+	                            <input type="radio" id="greater" name="option3" value="greater"/>
+	                            <label for="greater">></label>
+	                        </div>
+
+							<div class="2u 12u$(xsmall)">
+								<input type="text" name="date1" id="date1" value="" placeholder="Date (DD/MM/YY)" />
+							</div>
+						</div>
+
+	                    <br/>
+
+	                    <div class="12u$">
+	                        <ul class="actions">
+	                            <li><input type="submit" value="Go-Go-Gadget Export" class="special" /></li>
+	                            <li><input type="reset" value="Reset" /></li>
+	                        </ul>
+	                    </div>
+						<hr/>
+						</form>
+					</section>
+
+				</div> <!-- end inner -->
+			</div> <!-- end main -->
+		</div> <!-- end wrapper -->
+
+        <!-- Scripts -->
+			<script src="static/assets/js/jquery.min.js"></script>
+			<script src="static/assets/js/skel.min.js"></script>
+			<script src="static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="static/assets/js/main.js"></script>
+
+	</body>
+</html>

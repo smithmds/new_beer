@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/tab_image.png') }}">
+
+<html>
+	<head>
+	<title>Taster Tool</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="static/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="static/assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="static/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+		<div id="loading"></div>
+		<div id="content">
+
+			<div id="wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<div class="inner">
+
+						<!-- Logo -->
+							<a href="seeing-taste" class="logo">
+								<span class="symbol"><img src="static/images/tab_image.png" alt="" /></span><span class="title">{{title}}</span>
+							</a>
+
+						<!-- Nav -->
+							<nav>
+								<ul>
+									<li><a href="#menu">Menu</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</header>
+
+			<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="seeing-taste">Home</a></li>
+						<li><a href="https://docs.google.com/spreadsheets/d/1PcohvCtv_QMzwRYgR6bVXYQw3qPEm5X4fd0QWQ504PY/edit#gid=0" target="_blank">Update Lexicon</a></li>
+						<li><a href="update-all">Update All Files</a></li>						<li><a href="generic">Consequat dolor</a></li>
+						<li><a href="elements">Elements</a></li>
+					</ul>
+				</nav>
+                <!-- Main -->
+				<div id="main">
+
+					<div class="inner">
+						<h1>Taster Tool</h1>
+						<!-- Text -->
+						<section>
+
+							<h3>Type in a taster name and browse their sensory abilities. Open a second window to comare two people directly. <a href="https://docs.google.com/presentation/d/12SxtAVqCOfPIMm0BYn9ksCGZ9-5MdWKISd9xKoEX1WI/edit?usp=sharing" target="_blank">What do these plots mean?</a></h3>
+                            <hr />
+
+                            <div class="12u$"><span class="image fit"><img src="static/images/dash11.png" alt="" /></span></div>
+                            <hr />
+
+							<div class="12u$"><span class="image fit"><img src={{sense_fig}} alt="" /></span>
+							</div>
+								<p>The y-axis scores are adjusted averages to reward tasters who have experienced spikes more often than others. There is no perfect 100% adjusted average. Purple Senistivity violins indicate a taster who has gotten every spike of that compound correct.</p>
+
+							<div id="toHide">
+							<div class="12u$"><span class="image fit"><img src={{bias_fig}} alt="" /></span>
+							</div>
+							</div>
+
+							<!-- <div class="row uniform">
+								<div class="12u 12u$(medium)">
+									<ul class="actions">
+										<li><a onclick="hideText()" class="button">Bias</a></li>
+										<li><a onclick="hideText()" class="button">Majority Rate</a></li>
+										<li><a onclick="hideText()" class="button">Everyone's Means</a></li>
+
+									</ul>
+								</div>
+							</div> -->
+
+								<p>Shows the bias (blue), majority vote rate (purple), and their respective means both for the individual and all tasters (black and gray) over time in monthly and yearly intervals. Note that the year averages are located directly above the x-axis year mark. For example the year average for 2017 is noted directly above the 17 and accounts for the monthly points plotted between the 17 and 18. Also take note that the y-axis is limited to 30%. </p>
+								<p>This plot is most useful to gain insight on a taster's change over time and learn if the taster's tendencies may need addressing.</p>
+								<p>Note: As bias increases the odds that majority vote rate will also increase.</p>
+
+
+
+							<div class="12u$"><span class="image fit"><img src={{ttb_fig}} alt="" /></span>
+							</div>
+								<p>Trustworthiness takes into account a tasters' bias (how often they vote Not TTB), majority vote rate (when they do vote Not TTB do others agree), and experience (how often they have tasted). A higher Trustworthiness score indicates a better taster. </p>
+								<p>This plot is most useful to gain insight on the strength of a taster at a quick glance.</p>
+								<p>Note: that this plot doesn't nessisarily have the same set of taster names as the other two. Double Check the names on the plots to avoid confusions.</p>
+						</section>
+
+
+						<hr />
+	                    <!-- Form -->
+						<section>
+							<h3>Type in a name or use the drop down:</h3>
+							<form method="post" action="/taster-plots">
+
+	                        <div class="row uniform">
+	                            <div class="5u 12u$(xsmall)">
+	                                <input type="text" name="name" id="name" value="" placeholder="Taster Name" />
+	                            </div>
+
+								<h3>or</h3>
+
+								<div class="5u$">
+								<div class="select-wrapper">
+								<select name="taster_dropdown1" id="taster_dropdown1">
+									{% for x in taster_names %}
+									<option value="{{ x }}"
+									{% if loop.first %} SELECTED{% endif %}
+									>{{ x }}</option>
+									{% endfor %}
+								</select>
+								</div>
+								</div>
+							</div>
+
+							<div class="row uniform">
+	                            <div class="5u 12u$(xsmall)">
+	                                <input type="text" name="name2" id="name2" value="" placeholder="Second Taster Name (optional)" />
+	                            </div>
+
+								<h3>or</h3>
+
+								<div class="5u$">
+								<div class="select-wrapper">
+								<select name="taster_dropdown2" id="taster_dropdown2">
+									{% for x in taster_names %}
+									<option value="{{ x }}"
+									{% if loop.first %} SELECTED{% endif %}
+									>{{ x }}</option>
+									{% endfor %}
+								</select>
+								</div>
+								</div>
+	                        </div>
+
+	                        <br/>
+
+	                        <div class="12u$">
+	                            <ul class="actions">
+	                                <li><input type="submit" value="Go-Go-Gadget Plot" class="special" onclick="loading();"/></li>
+	                                <li><input type="reset" value="Reset" /></li>
+	                            </ul>
+	                        </div>
+	                        </form>
+						</section>
+
+					</div> <!-- end inner -->
+				</div> <!-- end main -->
+			</div> <!-- end wrapper -->
+		</div> <!-- end content -->
+
+    <!-- Scripts -->
+		<script src="static/assets/js/jquery.min.js"></script>
+		<script src="static/assets/js/skel.min.js"></script>
+		<script src="static/assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="static/assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="static/assets/js/main.js"></script>
+		<script type="text/javascript">// <![CDATA[
+				function loading(){
+					$("#loading").show();
+					$("#content").hide();
+				}
+		// ]]></script>
+
+		<script>
+		function hideText() {
+		    var x = document.getElementById('toHide');
+		    if (x.style.display === 'none') {
+		        x.style.display = 'block';
+		    } else {
+		        x.style.display = 'none';
+		    }
+		}
+		</script>
+
+	</body>
+</html>

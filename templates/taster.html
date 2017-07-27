@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/tab_image.png') }}">
+
+<html>
+<style> #toHide {} </style>
+	<head>
+		<title>Taster Tool</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="static/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="static/assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="static/assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+		<div id="loading"></div>
+		<div id="content">
+
+			<div id="wrapper">
+
+				<!-- Header -->
+				<header id="header">
+					<div class="inner">
+
+						<!-- Logo -->
+							<a href="seeing-taste" class="logo">
+								<span class="symbol"><img src="static/images/tab_image.png" alt="" /></span><span class="title">{{title}}</span>
+							</a>
+
+						<!-- Nav -->
+							<nav>
+								<ul>
+									<li><a href="#menu">Menu</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="seeing-taste">Home</a></li>
+						<li><a href="https://docs.google.com/spreadsheets/d/1PcohvCtv_QMzwRYgR6bVXYQw3qPEm5X4fd0QWQ504PY/edit#gid=0" target="_blank">Update Lexicon</a></li>
+						<li><a href="update-all">Update All Files</a></li>						<li><a href="generic">Consequat dolor</a></li>
+						<li><a href="elements">Elements</a></li>
+					</ul>
+				</nav>
+                <!-- Main -->
+					<div id="main">
+
+						<div class="inner">
+							<h1>Taster Tool</h1>
+							<!-- Text -->
+								<section>
+
+									<h3>Type in a taster name and browse their sensory abilities. Open a second window to comare two people directly. <a href="https://docs.google.com/presentation/d/12SxtAVqCOfPIMm0BYn9ksCGZ9-5MdWKISd9xKoEX1WI/edit?usp=sharing" target="_blank">How does this tool work?</a></h3>
+                                    <hr />
+
+                                    <div class="12u$"><span class="image fit"><img src="static/images/dash11.png" alt="" /></span></div>
+                                    <hr />
+								</section>
+
+                        <!-- Form -->
+								<section>
+									<h3>Type in a name or use the drop down:</h3>
+
+									<form method="post" action="/taster-plots">
+
+	                                <div class="row uniform">
+	                                    <div class="5u 12u$(xsmall)">
+                                        <input type="text" name="name" id="name" value="" placeholder="Taster Name" />
+	                                    </div>
+
+										<h3>or</h3>
+
+										<div class="5u$">
+										<div class="select-wrapper">
+										<select name="taster_dropdown1" id="taster_dropdown1">
+											{% for x in taster_names %}
+											<option value="{{ x }}"
+											{% if loop.first %} SELECTED{% endif %}
+											>{{ x }}</option>
+											{% endfor %}
+										</select>
+										</div>
+										</div>
+									</div>
+
+									<div class="row uniform">
+	                                    <div class="5u 12u$(xsmall)">
+                                        <input type="text" name="name2" id="name2" value="" placeholder="Second Taster Name (optional)" />
+	                                    </div>
+
+										<h3>or</h3>
+										<div class="5u$">
+										<div class="select-wrapper">
+										<select name="taster_dropdown2" id="taster_dropdown2">
+											{% for x in taster_names %}
+											<option value="{{ x }}"
+											{% if loop.first %} SELECTED{% endif %}
+											>{{ x }}</option>
+											{% endfor %}
+										</select>
+										</div>
+										</div>
+
+		                            </div>
+
+	                                <br/>
+
+	                                <div class="12u$">
+	                                    <ul class="actions">
+	                                        <li><input type="submit" value="Go-Go-Gadget Plot" class="special" onclick="loading();"/></li>
+	                                        <li><input type="reset" value="Reset" /></li>
+	                                    </ul>
+	                                </div>
+
+	                                </form>
+								</section>
+
+						</div> <!-- end inner -->
+					</div> <!-- end main -->
+				</div> <!-- end wrapper -->
+			</div> <!-- end content -->
+
+
+
+
+		<!-- Scripts -->
+		<script src="static/assets/js/jquery.min.js"></script>
+		<script src="static/assets/js/skel.min.js"></script>
+		<script src="static/assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="static/assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="static/assets/js/main.js"></script>
+		<script type="text/javascript">// <![CDATA[
+				function loading(){
+					$("#loading").show();
+					$("#content").hide();
+				}
+		// ]]></script>
+
+		<script>
+		function hideText() {
+			var x = document.getElementById('toHide');
+			if (x.style.display === 'none') {
+				x.style.display = 'block';
+			} else {
+				x.style.display = 'none';
+			}
+		}
+				</script>
+
+
+	</body>
+</html>
