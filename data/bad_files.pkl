@@ -1,0 +1,58 @@
+(lp0
+S'Arches Malty FTR APR 14 17.docx'
+p1
+aS'Baltimore Raspberry Sour FTR SEPT 16 16.docx'
+p2
+aS'Ben and Jerry Brownie Beer FTR Dec 19 15.docx'
+p3
+aS'Blackberry Barley Wine with Fruit FTR Dec 30 14.docx'
+p4
+aS'Blackberry Barley Wine without Fruit FTR Sep 30 14.docx'
+p5
+aS'Brown FTR Dec 12 14.docx'
+p6
+aS'Chocolate Brown FTR Dec 15 14.docx'
+p7
+aS'Dry Hopped Pilsner Hull Melon FTR Jun 9 15.docx'
+p8
+aS'Fall Hoppy 2015 AUG 21 14.docx'
+p9
+aS'Fruity Hoppy v2.docx'
+p10
+aS'Fruity Hoppy v4 FTR Mar 09 15.docx'
+p11
+aS'FWCOL PR AUG 26 16.docx'
+p12
+aS'Graff 2.docx'
+p13
+aS'Hop Tart FTR Dec 4 14.docx'
+p14
+aS'Hop Tart v2 FTR Jan 29 15.docx'
+p15
+aS'Hoppy Mango Tang FTR Jan 30 15.docx'
+p16
+aS'Imperial Frambozen FTR MAR 22 17.docx'
+p17
+aS'Kernza FTR Feb 9 15.docx'
+p18
+aS'Peach Coriander Wheat Wine V1 FTR MAy 12 16.docx'
+p19
+aS'Pre Sour Felix FTR JUL 18 16.docx'
+p20
+aS'Pre Sour Oscar FTR JUL 14 16.docx'
+p21
+aS'Raspberry blonde jan 11 17.docx'
+p22
+aS'Slow Ride 2 AUG 26 14.docx'
+p23
+aS'SMORES BROWN ALE FTR JAN 10 17.docx'
+p24
+aS'Smores Brown Ale.docx'
+p25
+aS'Sour Hoppy FTR Jan 5 15.docx'
+p26
+aS'Sour Hoppy v2 FTR Feb 20 15.docx'
+p27
+aS'Trip 20 Brett FTR Jan 08 15.docx'
+p28
+a.

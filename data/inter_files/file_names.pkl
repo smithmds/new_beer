@@ -1,0 +1,298 @@
+(lp0
+S'ABRUZZI RYE PORTER FTR SEPT 2 16.docx'
+p1
+aS'Agua Fresca FTR MAY 11 17.docx'
+p2
+aS'Ales for ALS FTR JUL 18 16.docx'
+p3
+aS'Ales for ALS FTR JUL 20 15.docx'
+p4
+aS'Allagash FT Collab FTR 3-1-16.docx'
+p5
+aS'Amber Waves FTR APR 7 15.docx'
+p6
+aS'Anne Francoise Orvall Collab JAN 25 16.docx'
+p7
+aS'Aqua Fresca V3 FTR MAR 24 17.docx'
+p8
+aS'Arches Hoppy FTR APR 14 17.docx'
+p9
+aS'Atomic Pumpkin FTR JAN 9 17.docx'
+p10
+aS'Atomic Pumpkin Pie FTR JAN 9 17.docx'
+p11
+aS'B&J Chocolatechip Cookie Dough FTR JUL 26 16.docx'
+p12
+aS'B-Side Organic Peach IPA HUB Collab FTR June 24 15.docx'
+p13
+aS'Belgian Apple V2 FTR MAr 9 16.docx'
+p14
+aS'BJ Cooke Dough FTR MAR 21 16.docx'
+p15
+aS'Blackberry Barley Wine 3 FTR Mar 20 15.docx'
+p16
+aS'Boom Chocolatta V1 FTR 3-18-16.docx'
+p17
+aS'Botanical IPA FTR FEB 17 16.docx'
+p18
+aS'Botanical IPA FTR Jul 27 15.docx'
+p19
+aS'Botanical IPA V2 FTR Oct 20 15.docx'
+p20
+aS'Bravo Equinox IPA FTR JAN 4 16.docx'
+p21
+aS'Bretta IPA base beer OCT 15 15.docx'
+p22
+aS'Callisto Mango V1 FTR MAY 3 17.docx'
+p23
+aS'Callisto V1 FTR NOV 7 16.docx'
+p24
+aS'Callisto V1.1 FTR NOV 28 16.docx'
+p25
+aS'Callisto V1.1 FTR NOV 28 16_1.docx'
+p26
+aS'Callisto V1.2 FTR JAN 19 17.docx'
+p27
+aS'Callisto V2 FTR NOV 9 16.docx'
+p28
+aS'Carme V2 FTR MAY 11 17.docx'
+p29
+aS'Cherry Brett FTR Feb 3 16.docx'
+p30
+aS'Cherry Brown FTR Sep 16 15.docx'
+p31
+aS'Chinook BOMB FTR DEC 22 16.docx'
+p32
+aS'chocolate cherry vanilla imperial porter FTR DEC 2 15.docx'
+p33
+aS'Chocolate FZ Grad CRU NOV 7 16.docx'
+p34
+aS'ChocolateCookiebeerBJ FTR APR 27 16.docx'
+p35
+aS'Citradelic 2.0 FTR Aug 20 15.docx'
+p36
+aS'Coco Mole Light FTR JAN 20 17.docx'
+p37
+aS'DE KONINCK FTR JUN 21 16.docx'
+p38
+aS'DeKoninck Collab FTR Dec 21 15.docx'
+p39
+aS'DEMARYIS 3 VOL 1 FTR MAR 16 17.docx'
+p40
+aS'Dia Aqua Fresca V1 FTR FEB 9 17.docx'
+p41
+aS'DIA SMOKED FRUIT MEZCAL SPICY V1.1 FTR FEB 21 17.docx'
+p42
+aS'DIA VIENNA LAGER V1 FTR FEB 21 17.docx'
+p43
+aS'DOUBLE TRIPLE FTR JUN 1 16.docx'
+p44
+aS'EL VECINO FTR MAY 4 17.docx'
+p45
+aS'Elara LB Stout V2 FTR SEP 30 16.docx'
+p46
+aS'ELARA LV GOLDEN V2 NOV 10 16.docx'
+p47
+aS'Elderflower Lemon Golden Sour Ale FTR JUN 13 16.docx'
+p48
+aS'Europa Full Scale FTR JUL 25 16.docx'
+p49
+aS'EUROPA V3 FTR MAY 31 16.docx'
+p50
+aS'Europa V3 redo FTR JUN 13 16.docx'
+p51
+aS"Fat Head's Smoldering Sour FTR Nov 5 15.docx"
+p52
+aS'Film Noir FTR MAY 7 15.docx'
+p53
+aS'Frambozen FTR NOV 14 16.docx'
+p54
+aS'Fruity Hoppy v10 Blood Orange FTR Jun 12 15.docx'
+p55
+aS'Fruity Hoppy v10.2 FTR Jun 12 15.docx'
+p56
+aS'Fruity Hoppy V3 FTR Feb 26 15.docx'
+p57
+aS'Fruity Hoppy V6 FTR Apr 06 15.docx'
+p58
+aS'Fruity Hoppy V7 FTR Apr 28 15.docx'
+p59
+aS'Fruity Hoppy V8 FTR May 01 15.docx'
+p60
+aS'Fruity Hoppy V9 FTR May 21 15.docx'
+p61
+aS'Ft Collins Collusion Cacau IPA FTR May 05 15.docx'
+p62
+aS'GABF Pro-Am 2015 Chardonnay Oak Aged Saison FTR Aug 12 15.docx'
+p63
+aS'Gluten Reduced Lager FTR May 13 15.docx'
+p64
+aS'Gluten Reduced Pale Ale FTR May 11 15.docx'
+p65
+aS'Glutiny IPA V1 MAR 21 16.docx'
+p66
+aS'Glutiny IPA V2 FTR Mar 28 16.docx'
+p67
+aS'Grilled Peach FTR MAR 9 16.docx'
+p68
+aS'Grilled Pineapple Golden Ale FTR SEPT 6 16.docx'
+p69
+aS'Guava Spruce V2 FTR JUN 3 16.docx'
+p70
+aS'Guava Spurce DIPA V1 FTR AUG 22 16.docx'
+p71
+aS'Himalia FTR DEC 12 16.docx'
+p72
+aS'Hof Ten Dormaal Collab FTR Nov 6 15.docx'
+p73
+aS'Hoppy Blonde V1 FTR July 1 2015.docx'
+p74
+aS'Hoppy Blonde V2 FTR OCT 15 15.docx'
+p75
+aS'HOUSE PORTER FTR JUN 20 16.docx'
+p76
+aS'HUB COLLAB FT SOUR APPLE FEB 17 16.docx'
+p77
+aS'Imbibe FTR Apr 17 15.docx'
+p78
+aS'Imperial Cascadian Dark Ale FTR APR 10 17.docx'
+p79
+aS'Imperial Frambozen FTR JUN 13 16.docx'
+p80
+aS'Imperial Indian Ale FTR OCT 13 16.docx'
+p81
+aS'Indeed collaboration Honey Wheat Wine FTR APR 25 16.docx'
+p82
+aS'India Brown Ale FTR Sep 23 15.docx'
+p83
+aS'Jester Smash Pre Dry Hop FTR NOV 12 16.docx'
+p84
+aS'Juicy Mandarina FTR DEC 7 15.docx'
+p85
+aS'KORE V2 FTR APR 10 17.docx'
+p86
+aS'LA IPL FTR SEP 29 16.docx'
+p87
+aS'Labor of Love ftr oct 13 15.docx'
+p88
+aS'LB SAISON FTR AUG 25 16.docx'
+p89
+aS'LB STOUT V3 FTR NOV 23 16.docx'
+p90
+aS'LEBA ORANGE FTR FEB 27 17.docx'
+p91
+aS'LEDA STRAWBERRY FTR MAR 1 17.docx'
+p92
+aS'LEMON GINGER FTR JUN 15 16.docx'
+p93
+aS'Lemon Ginger Stainless Sour FTR Oct 14 15.docx'
+p94
+aS'Lemon Ginger V2 FTR .6TA.DOCX'
+p95
+aS'Lows Foods Marzen FTR SEP 19 16.docx'
+p96
+aS'Mango Spruce DIPA JAN 6 15.docx'
+p97
+aS'Marius v.5 pilot.docx'
+p98
+aS'MARIUS V1 FTR JUN 20 16.docx'
+p99
+aS'Marius V2 FTR JUL 6 16.docx'
+p100
+aS'MARIUS V3 FTL JUN 17 16.docx'
+p101
+aS'MARIUS V4 JUL 11 16.docx'
+p102
+aS'METIS FTR NOV 15 16.docx'
+p103
+aS'METIS V1 FTR JUN 27 16.docx'
+p104
+aS'METIS V2 FTR JUN 20 16.docx'
+p105
+aS'METIS V3 FTR JUL 11 16.docx'
+p106
+aS'Mile High Thunder FTR JAN 26 17.docx'
+p107
+aS'No BOIL NE IPA FTR APR 13 17.docx'
+p108
+aS'Of Snow and Sand FTR FEB 16 16.docx'
+p109
+aS'Orange Vanilla FTR FEB 1 16.docx'
+p110
+aS'Palisade Smash FTR OCT 12 16.docx'
+p111
+aS'Passion Fruit IPA FTR FEB 13 17.docx'
+p112
+aS'Passionfruit Citra Berliner Weisse FTR Oct 19 15.docx'
+p113
+aS'Passionfruit Citra V2 MAR 16 16.docx'
+p114
+aS'Peach Coriander Wheat Wine V1 FTR Mar 29 16.docx'
+p115
+aS'Pilsner 2017 V2 Euro FTR Aug 12 15.docx'
+p116
+aS'Pilsner 2017 V3 American FTR Aug 18 15.docx'
+p117
+aS'Pilsner for CLT1 (European) FTR Nov 11 15.docx'
+p118
+aS'Pilsner v1 June 2 15.docx'
+p119
+aS'Pro-AM FTR AUG 15 16.docx'
+p120
+aS'RA Pale_SLR 2.0 FTR JUL 5 16.docx'
+p121
+aS'Ranger Games Red Velvet Scotch Ale FTR Nov 16 15.docx'
+p122
+aS'Raspberry Blonde FTR JAN 11 17.docx'
+p123
+aS'Rheingeist FT Collab FTR Mar 30 16.docx'
+p124
+aS'SAHTI FTR MAR 10 17.docx'
+p125
+aS'Scuppernong Sumac Sour FTR Aug 11 16.docx'
+p126
+aS'Sessionable Blond Ale 970 V1 FTR APR 18 16.docx'
+p127
+aS'Sessionable Blond Ale 970 V2 FTR APR 18 16.docx'
+p128
+aS'Side Trip Belgian Pale Ale FTR Jul 13 15.docx'
+p129
+aS'Southern Hemisphere IPA FTR Oct 23 15.docx'
+p130
+aS'Spiced Belgian Stout FTR AUG 16 16.docx'
+p131
+aS'Strawberry IPA DEC 28 15.docx'
+p132
+aS'STW Basil FTR Mar 6 15.docx'
+p133
+aS'Sumac Niagra Grape FTR AUG 24 16.docx'
+p134
+aS'SUN SESSION SAISON FTR JUN 16 16.docx'
+p135
+aS'Tart Lychee V1 FTR Feb 10 16.docx'
+p136
+aS'Texas Style Mango Berliner Weisse FRT NOV 7 16.docx'
+p137
+aS'Toasted Almond Brown V1 FTR Dec 30 15.docx'
+p138
+aS'Toasted Almond Brown V2 FTR Jan 20 16.docx'
+p139
+aS'Toasted Almond Brown V4 FTR 3-1-16.docx'
+p140
+aS'Trailhead Lager FTR NOV 14 16.docx'
+p141
+aS'Tropical Rye FTR AUG 17 16.docx'
+p142
+aS'Verboten Peppermint Stout FTR MAR 05 15.docx'
+p143
+aS'Watermelon Summer 16 FTR May 26 15.docx'
+p144
+aS'Western Slope Imperial Red FTR APR 6 16.docx'
+p145
+aS'WET HOP FTR SEPT 27 16.docx'
+p146
+aS'WFB ftr aug 19 16.docx'
+p147
+aS'yours and mine_Charlotte collab FTR AUG 31 15.docx'
+p148
+a.
