@@ -53,7 +53,13 @@ class SensitivityViolin(object):
         pass
 
     def Update(self,read_file,save_path = None):
-        df = pd.read_csv(read_file, encoding = 'latin1')
+        if read_file.split['.'][-1] == 'csv':
+            df = pd.read_csv(read_file, encoding = 'latin1')
+
+        #still need updating for this
+        elif read_file.split['.'][-1] == 'xlsx':
+            df = pd.read_excel(read_file, sheetname = 'Attributes Source')
+
         df.columns = [re.sub(' ','_',col.lower()) for col in df.columns.tolist()]
 
         # cleaning format column

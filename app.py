@@ -165,16 +165,8 @@ def new_beer_plots():
         # Finishing items
         # -----------------------------
 
-
-
-
-    # plotting all the radial plots individually
     radial_plt_lst = []
-    # for ibeer in beers2label:
-    #     nb.Plot_one_radial(ibeer)
-    #     save_one = '{}/one_{}_{}.png'.format(save_folder, ibeer, int(time.time()))
-    #     plt.savefig(current_folder +'/'+ save_one, facecolor = 'white')
-    #     radial_plt_lst.append(save_one)
+
 
     return render_template('new-beer-plot.html',
             title = title_,
@@ -190,7 +182,7 @@ def new_beer_plots():
 def updating():
 
     # folder = 'files/doc_files' #file to read the .doc new beers from
-    folder = '~/S:/QA/Fort Collins/sensory/P50s not in Sample Manager/Pilot Brewery'
+    folder = '~/S:/QA/Fort Collins/Sensory/P50s not in Sample Manager/Pilot Brewery'
     rnb = ReadNewBeers(cold_start = False)
     files, beers = rnb.Read_new_beer_files(folder)
     text, names = rnb.Get_text_df()
@@ -339,18 +331,19 @@ def trust():
 def taster_updating():
 
     # ---- update sensitivites
-    read_file = 'files/attvalpiv.csv'
+    # read_file = 'files/attvalpiv.csv'
+    read_file = '~/S:/QA/Fort Collins/Sensory/P50s not in Sample Manager/Sensory Scientists Only/attvalpiv.xlsx'
     save_file = '{}/sensitivites.pkl'.format(version_folder)
     sen = SensitivityViolin()
     sen.Update(read_file,save_file)
 
-    # ---- update bias time plots
-    spike_read_pkl = '{}/sensitivites.pkl'.format(version_folder) # sensitivites_violin.py
-    ttb_read_csv = '{}/foco_cleaned_df.csv'.format(version_folder) # taster_spreadsheet.py
-    time_save_pkl = '{}/predict_validation.pkl'.format(version_folder)
-
-    pv = PredictValidation()
-    pv.Make_dfs(ttb_read_csv, spike_read_pkl, save_df_path = time_save_pkl)
+    # # ---- update bias time plots
+    # spike_read_pkl = '{}/sensitivites.pkl'.format(version_folder) # sensitivites_violin.py
+    # ttb_read_csv = '{}/foco_cleaned_df.csv'.format(version_folder) # taster_spreadsheet.py
+    # time_save_pkl = '{}/predict_validation.pkl'.format(version_folder)
+    #
+    # pv = PredictValidation()
+    # pv.Make_dfs(ttb_read_csv, spike_read_pkl, save_df_path = time_save_pkl)
 
     return '''
                 <html>
