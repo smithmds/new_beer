@@ -182,7 +182,7 @@ def new_beer_plots():
 def updating():
 
     # folder = 'files/doc_files' #file to read the .doc new beers from
-    folder = '~\oldcherry\shared\QA\Fort Collins\Sensory\P50s not in Sample Manager\Pilot Brewery'
+    folder = '~/oldcherry/shared/QA/Fort Collins/Sensory/P50s not in Sample Manager/Pilot Brewery'
     rnb = ReadNewBeers(cold_start = False)
     files, beers = rnb.Read_new_beer_files(folder)
     text, names = rnb.Get_text_df()
