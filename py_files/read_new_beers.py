@@ -151,7 +151,7 @@ class ReadNewBeers(object):
         self.text_df = text_df
 
 
-    def Find_bad_format_files(self):
+    def Find_bad_format_files(self,folder):
         '''
         Returns the files that werent uploaded
         '''
@@ -168,5 +168,5 @@ if __name__ == '__main__':
     rnb = ReadNewBeers(cold_start = True)
     files, beers = rnb.Read_new_beer_files(folder)
     text, names = rnb.Get_text_df()
-    rnb.Find_bad_format_files()
+    rnb.Find_bad_format_files(folder)
     rnb.Make_comment_dfs()

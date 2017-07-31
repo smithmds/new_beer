@@ -189,8 +189,13 @@ def new_beer_plots():
 @app.route('/new-beer/updating', methods=['GET'])
 def updating():
 
-    folder = 'files/doc_files' #file to read the .doc new beers from
-    update_all_files(folder,cold_start = False)
+    # folder = 'files/doc_files' #file to read the .doc new beers from
+    folder = 'S:/QA/Fort Collins/sensory/P50s not in Sample Manager/Pilot Brewery'
+    rnb = ReadNewBeers(cold_start = False)
+    files, beers = rnb.Read_new_beer_files(folder)
+    text, names = rnb.Get_text_df()
+    # rnb.Find_bad_format_files(folder)
+    rnb.Make_comment_dfs()
 
     return '''
                 <html>
