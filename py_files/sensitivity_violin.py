@@ -1,5 +1,3 @@
-import matplotlib
-matplotlib.use('Agg')
 
 '''
 Code written and developed by Jan Van Zeghbroeck

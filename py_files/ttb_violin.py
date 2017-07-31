@@ -1,5 +1,4 @@
-import matplotlib
-matplotlib.use('Agg')
+
 '''
 class produces a violin plot with tasters for the TTB trustworthiness ratings
 requires 'data/trustworthiness_ratings.pkl'

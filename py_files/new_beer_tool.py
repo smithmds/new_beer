@@ -1,5 +1,4 @@
-import matplotlib
-matplotlib.use('Agg')
+
 
 '''
 Code written and developed by Jan Van Zeghbroeck
@@ -9,17 +8,12 @@ https://github.com/janvanzeghbroeck
 
 
 import os
-# import matplotlib as mpl
-# if os.environ.get('DISPLAY','') == '':
-#     print('no display found. Using non-interactive Agg backend')
-#     mpl.use('Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
 from sklearn.decomposition import NMF
-# from wordcloud import WordCloud
 from collections import Counter
 from sklearn.decomposition import TruncatedSVD, PCA
 
@@ -45,13 +39,19 @@ class NewBeer(object):
     def __init__(self):
         np.random.seed(42)
 
-    def Fit(self,read_file):
+    def Fit_from_new_beer_features(self,read_file):
         beers = pd.read_pickle(read_file)
         self.df = beers
         text = beers['all_text'].values
         self.text = [' '.join(quality) for quality in text]
 
         self.beer_names = np.array(beers.index.tolist())
+
+    def Fit(self,read_file):
+        beers = pd.read_pickle(read_file)
+        self.df = beers
+        self.text = beers['comment_text']
+        self.beer_names = beers['beer_name']
 
     def Transform(self, k = 5):
         self.k = k
@@ -244,7 +244,7 @@ if __name__ == '__main__':
     plt.close('all')
 
     n_clusters = 5 # 5 recomened
-    read_file = '../data/new_beer_features.pkl'
+    read_file = 'data3/comment_text_df.pkl'
 
     nb = NewBeer()
     nb.Fit(read_file)
@@ -252,6 +252,6 @@ if __name__ == '__main__':
     beers2label = nb.Plot_radial('puckering')
     nb.Plot_pca(beer_labels = beers2label)
     nb.Plot_one_beer(4)
-    nb.Plot_one_radial(10)
+    nb.Plot_one_radial(9)
 
     plt.show()

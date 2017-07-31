@@ -38,13 +38,14 @@ def update_all_files(folder,cold_start = False):
     feats['all_text'] = all_text
 
     # saving the files
-    feats.to_pickle('../{}/new_beer_features.pkl'.format(version_folder))
-    pickle.dump(bad_files, open('../{}/bad_files.pkl'.format(version_folder), "wb" ))
+    feats.to_pickle('{}/new_beer_features.pkl'.format(version_folder))
+    pickle.dump(bad_files, open('{}/bad_files.pkl'.format(version_folder), "wb" ))
     print('Finished saving all files')
 
     return feats, bad_files
 
 if __name__ == '__main__':
-    folder = '../files/doc_files' #file to read the .doc new beers from
+    # run from main folder as run py_files/new_beer_update
+    folder = 'files/doc_files' #file to read the .doc new beers from
 
-    feats, bad_files = update_all_files(folder,cold_start = False)
+    feats, bad_files = update_all_files(folder,cold_start = True)

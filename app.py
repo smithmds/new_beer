@@ -9,10 +9,6 @@ https://html5up.net/
 July 2017
 '''
 import os
-# import matplotlib as mpl
-# if os.environ.get('DISPLAY','') == '':
-#     print('no display found. Using non-interactive Agg backend')
-#     mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 from flask import Flask, render_template, request, send_from_directory
@@ -28,7 +24,7 @@ from py_files.ttb_violin import TTBViolin
 from py_files.sensitivity_violin import SensitivityViolin
 from py_files.df_limiting import limiting
 from py_files.new_beer_tool import NewBeer
-from py_files.new_beer_update import update_all_files
+from py_files.read_new_beers import ReadNewBeers
 from py_files.predict_validation import PredictValidation
 
 app = Flask(__name__)
@@ -57,7 +53,7 @@ def update_all():
 
 @app.route('/new-beer', methods=['GET'])
 def new_beer():
-    read_file = '{}/new_beer_features.pkl'.format(version_folder)
+    read_file = '{}/comment_text_df.pkl'.format(version_folder)
 
     nb = NewBeer()
     nb.Fit(read_file)
@@ -74,7 +70,7 @@ def new_beer_plots():
         # -----------------------------
 
     n_clusters = 5 # 5 recomened
-    read_file = '{}/new_beer_features.pkl'.format(version_folder)
+    read_file = '{}/comment_text_df.pkl'.format(version_folder)
     save_folder ='static/images/plots'
 
     # delete any plot image that exists in save_folder
@@ -86,6 +82,8 @@ def new_beer_plots():
     nb.Fit(read_file)
     nb.Transform(k = n_clusters)
 
+    # the list for the drop down menu
+    beer_names_lst = ['Beer Name']+list(nb.beer_names)
 
         # request input items
         # -----------------------------
@@ -102,7 +100,7 @@ def new_beer_plots():
     highlight_beer = [str(request.form['highlight']).lower(),
                     str(request.form['highlight2']).lower()]
 
-
+    name_search = str(request.form['beer_name_search']).lower()
         # identify which beers are going to be plotted
         # -----------------------------
 
@@ -111,16 +109,30 @@ def new_beer_plots():
         beer_search = [
             np.argwhere(nb.beer_names == highlight_beer[0])[0][0],
             np.argwhere(nb.beer_names == highlight_beer[1])[0][0]]
+
+        beer_search_input = 'Compare ' + highlight_beer[0] + ' and ' + highlight_beer[1]
     # if both are blank
-    elif beer_search == '' and radio_buttons == '':
+    elif beer_search == '' and radio_buttons == '' and name_search == '':
         beer_search = None
+        beer_search_input = 'None'
+
     # if the text field is blank
-    elif beer_search == '':
+    elif beer_search == '' and name_search == '':
         beer_search = int(radio_buttons)
+        beer_search_input = 'Topic {}'.format(beer_search + 1)
+
+    # if search by name
+    elif name_search != '':
+        # 1- i because of 'beer name' in first list position
+        beer_search = [i-1 for i, beer in enumerate(beer_names_lst) if name_search in beer]
+        beer_search_input = 'Name = ' + name_search
     # try to find the closest word
     elif beer_search not in nb.bag_of_words:
         choices = nb.bag_of_words
         beer_search = process.extractOne(beer_search, choices)[0]
+        beer_search_input = 'Beer term = ' + beer_search
+    else:
+        beer_search_input = 'Beer term = ' + beer_search
 
 
         # Plotting
@@ -153,13 +165,6 @@ def new_beer_plots():
         # Finishing items
         # -----------------------------
 
-    # rename beer_search if its an cluster integer
-    if type(beer_search) == int:
-        beer_search = 'Topic {}'.format(beer_search + 1)
-
-    # the list for the drop down menu
-    beer_names_lst = ['Beer Name']+list(nb.beer_names)
-
 
 
 
@@ -175,7 +180,7 @@ def new_beer_plots():
             title = title_,
             pca_fig = save_pca,
             radial_fig = save_radial,
-            search_term = beer_search,
+            search_term = beer_search_input,
             beer_names = beer_names_lst,
             one_radial_lst = radial_plt_lst,
             top_beer1_words = top_beer_terms[0],
