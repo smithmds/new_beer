@@ -8,6 +8,7 @@ https://github.com/janvanzeghbroeck
 
 
 import os
+import sys
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -17,6 +18,10 @@ from sklearn.decomposition import NMF
 from collections import Counter
 from sklearn.decomposition import TruncatedSVD, PCA
 
+if sys.version_info[0] == 3:
+    version_folder = 'data3'
+else:
+    version_folder = 'data'# current_folder = os.getcwd()
 
 '''
 needed to change col name for all_text and get the beer names from the index of the df beers from pickle
@@ -163,6 +168,7 @@ class NewBeer(object):
         pca.fit(self.W)
         self.pca = pca
         X = pca.transform(self.W)
+        self.pca_transformation = X
         y = self.cluster_labels
 
         # labels for lagend = top 10 words
@@ -238,6 +244,22 @@ class NewBeer(object):
             bar.set_facecolor(colors[i])
             bar.set_alpha(0.75)
         plt.tight_layout()
+
+    def Make_d3_csv(self):
+        X = self.pca_transformation
+
+        df = pd.DataFrame(X)
+        df.columns = ['X','Y','Z']
+        df['dot_size'] = df['Z']*1000+267
+        df['dot_label'] = self.cluster_labels+1
+        df['beer_name'] = self.beer_names
+
+        legend = pd.DataFrame(np.array(nb.top_words).T)
+        legend.columns = ['1','2','3','4','5']
+        save_path = '{}/inter_files'.format(version_folder)
+        df.to_csv('{}/d3_pca.csv'.format(save_path))
+        legend.to_csv('{}/d3_legend.csv'.format(save_path))
+        return df,legend
 
 
 if __name__ == '__main__':
