@@ -58,9 +58,11 @@ def new_beer():
     nb = NewBeer()
     nb.Fit(read_file)
     beer_names_lst = ['Beer Name']+list(nb.beer_names)
+
     return render_template('new-beer.html',
             title = title_,
             beer_names = beer_names_lst)
+
 
 @app.route('/new-beer-plots', methods=['POST'])
 def new_beer_plots():
@@ -85,54 +87,101 @@ def new_beer_plots():
     # the list for the drop down menu
     beer_names_lst = ['Beer Name']+list(nb.beer_names)
 
+        # narrow down the categories
+        # -----------------------------
+    categories = ['tests_and_trials',
+                 'in_process',
+                 'finished_product',
+                 'market_beers',
+                 'wood_cellar',
+                 'cider']
+
+    cat_inputs = [] # list
+
+    cat_boxes = ['cat' + str(i+1) for i in range(6)] # ['cat1', etc]
+
+    for i, cat in enumerate(cat_boxes):
+        if request.form.get(cat):
+        	cat_inputs.append(categories[i]) #list of categories
+
+    cat_idx = []
+    for cat_input in cat_inputs:
+        cat_idx.extend([i for i, cat in enumerate(nb.category) if cat_input in cat])
+
+    full_cat_index = list(set(cat_idx))
         # request input items
         # -----------------------------
 
-    # get the search term (has priority over the radio buttons)
-    beer_search = str(request.form['beer_word']).lower()
-    try:
-        # can't get a request if it doesnt exist
-        radio_buttons = str(request.form['option'])
-    except:
-        radio_buttons = ''
+    one_beer = str(request.form['one_beer']).lower()
+    two_beer = str(request.form['two_beer']).lower()
+    beer_search_term = str(request.form['beer_search']).lower()
 
-    # request the compare/highlight beer option
-    highlight_beer = [str(request.form['highlight']).lower(),
-                    str(request.form['highlight2']).lower()]
+    beer1_idx = None
+    beer2_idx = None
 
-    name_search = str(request.form['beer_name_search']).lower()
-        # identify which beers are going to be plotted
-        # -----------------------------
+    # if one beer is selected == closest 5
+    if one_beer != 'beer name' and  two_beer == 'beer name':
+        beer1_idx = np.argwhere(nb.beer_names == one_beer)[0][0]
+        dist, idxs = nb.Find_neighbors(beer1_idx)
+
+        # restrict based on what category
+        full_cat_index.append(beer1_idx)# add to beer categories
+        idxs = [i for i in idxs if i in full_cat_index]
+
+        beer_search = list(idxs[:6])
+        beer_search_input = 'Similar to: '+one_beer
 
     # if both beers for the compare is selected
-    if highlight_beer[0] != 'beer name' and highlight_beer[1] != 'beer name':
-        beer_search = [
-            np.argwhere(nb.beer_names == highlight_beer[0])[0][0],
-            np.argwhere(nb.beer_names == highlight_beer[1])[0][0]]
+    elif one_beer != 'beer name' and two_beer != 'beer name':
+        beer1_idx = np.argwhere(nb.beer_names == one_beer)[0][0]
+        beer2_idx = np.argwhere(nb.beer_names == two_beer)[0][0]
+        full_cat_index.append(beer1_idx)# add to beer categories
+        full_cat_index.append(beer2_idx)# add to beer categories
 
-        beer_search_input = 'Compare ' + highlight_beer[0] + ' and ' + highlight_beer[1]
-    # if both are blank
-    elif beer_search == '' and radio_buttons == '' and name_search == '':
-        beer_search = None
-        beer_search_input = 'None'
+        beer_search = [beer1_idx, beer2_idx]
+        beer_search_input = 'Comparing {} and {}'.format(one_beer, two_beer)
 
-    # if the text field is blank
-    elif beer_search == '' and name_search == '':
-        beer_search = int(radio_buttons)
-        beer_search_input = 'Topic {}'.format(beer_search + 1)
+    # if the beer search term is not blank
+    elif beer_search_term != '':
+        name_or_term = str(request.form['search_option'])
 
-    # if search by name
-    elif name_search != '':
-        # 1- i because of 'beer name' in first list position
-        beer_search = [i-1 for i, beer in enumerate(beer_names_lst) if name_search in beer]
-        beer_search_input = 'Name = ' + name_search
-    # try to find the closest word
-    elif beer_search not in nb.bag_of_words:
-        choices = nb.bag_of_words
-        beer_search = process.extractOne(beer_search, choices)[0]
-        beer_search_input = 'Beer term = ' + beer_search
+        # if we are searching names
+        if name_or_term == 'name_entry':
+            beer_search = [i-1 for i, beer in enumerate(beer_names_lst) if beer_search_term in beer]
+            beer_search_input = 'Name = ' + beer_search_term
+
+        # if we are searching terms
+        elif name_or_term == 'term_entry':
+            if beer_search_term in nb.bag_of_words:
+                beer_search = [i for i, beer in enumerate(nb.beer_top_terms) if beer_search_term in beer]
+            else: #if that term doesnt exist
+                beer_search = np.random.choice(range(len(nb.beer_names)), size = 1, replace = False)
+                beer_search_term = 'None'
+            beer_search_input = 'Beer term = ' + beer_search_term
+
     else:
-        beer_search_input = 'Beer term = ' + beer_search
+        try: # to request the cluster radio buttons
+            radio_buttons = int(str(request.form['option']))
+            beer_search = np.argwhere(nb.cluster_labels==radio_buttons).flatten()
+            beer_search_input = 'Cluster {}'.format(radio_buttons+1)
+        except: # no entry, select all
+            beer_search = range(len(nb.beer_names))
+            beer_search_input = 'None'
+
+
+    # add these to the full_cat_index
+    # if beer2_idx is not None and beer2_idx not in full_cat_index:
+    #     full_cat_index.append(beer2_idx)
+    # if beer1_idx is not None and beer1_idx not in full_cat_index:
+    #     full_cat_index.append(beer1_idx)
+
+    # limit to those of the selected categories
+    beer_search = [i for i in beer_search if i in full_cat_index]
+
+    # if its too many, restrict the number to 30
+    if len(beer_search) > 30:
+        beer_search =np.random.choice(range(len(nb.beer_names)), size = 30, replace = False)
+        beer_search_input = beer_search_input + '(Limit 30)'
 
 
         # Plotting
@@ -144,9 +193,10 @@ def new_beer_plots():
     plt.savefig(save_radial, facecolor = 'white')
 
     # plot and save the pca
-    nb.Plot_pca(beer_labels = beers2label)
+    nb.Plot_pca(beer_labels = beers2label,limited = full_cat_index)
 
     # plot the highlited beers on the pca
+    highlight_beer = [one_beer,two_beer]
     top_beer_terms = []
     for beer in highlight_beer:
         if beer == 'beer name':
@@ -165,7 +215,6 @@ def new_beer_plots():
         # Finishing items
         # -----------------------------
 
-    radial_plt_lst = []
 
 
     return render_template('new-beer-plot.html',
@@ -174,9 +223,9 @@ def new_beer_plots():
             radial_fig = save_radial,
             search_term = beer_search_input,
             beer_names = beer_names_lst,
-            one_radial_lst = radial_plt_lst,
             top_beer1_words = top_beer_terms[0],
-            top_beer2_words = top_beer_terms[1])
+            top_beer2_words = top_beer_terms[1],
+            categories_chosen = ' | '.join(cat_inputs))
 
 @app.route('/new-beer/updating', methods=['GET'])
 def updating():

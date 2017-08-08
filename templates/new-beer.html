@@ -49,7 +49,7 @@
 					<ul>
 						<li><a href="seeing-taste">Home</a></li>
 						<li><a href="https://docs.google.com/spreadsheets/d/1PcohvCtv_QMzwRYgR6bVXYQw3qPEm5X4fd0QWQ504PY/edit#gid=0" target="_blank">Update Lexicon</a></li>
-						<li><a href="update-all">Update All Files</a></li>						<li><a href="generic">Consequat dolor</a></li>
+						<li><a href="update-all">Update All Files</a></li>						<li><a href="generic">About the Creators</a></li>
 						<li><a href="elements">Elements</a></li>
 					</ul>
 				</nav>
@@ -71,15 +71,54 @@
 
                         <!-- Form -->
 							<section>
-								<h3>Compare Two Beers Using the Drop Down:</h3>
+
 								<form method="post" action="/new-beer-plots">
 
+								<h3>1. Select from the category of beers you would like to see:</h3>
+
 
 								<div class="row uniform">
-									<h3>Beer 1:</h3>
+									<div class="2u 12u$(small)">
+										<input type="checkbox" id="cat1" name="cat1" checked>
+										<label for="cat1">Test &amp Trials</label>
+									</div>
+									<div class="2u 12u$(small)">
+										<input type="checkbox" id="cat2" name="cat2" checked>
+										<label for="cat2">In Process</label>
+									</div>
+
+									<div class="2u 12u$(small)">
+										<input type="checkbox" id="cat3" name="cat3" checked>
+										<label for="cat3">Finished Beer</label>
+									</div>
+
+									<div class="2u 12u$(small)">
+										<input type="checkbox" id="cat4" name="cat4" checked>
+										<label for="cat4">Market Beers</label>
+									</div>
+
+									<div class="2u 12u$(small)">
+										<input type="checkbox" id="cat5" name="cat5" checked>
+										<label for="cat5">Wood Cellar</label>
+									</div>
+
+									<div class="2u 12u$(small)">
+										<input type="checkbox" id="cat6" name="cat6" checked>
+										<label for="cat6">Cider</label>
+									</div>
+
+								</div>
+								<hr />
+
+							</br>
+
+
+								<h3>2. Find the most similar beers to a single beer or Compare Two Beers:</h3>
+								<div class="row uniform">
+									<p>Most Similar to:</p>
 
 									<div class="select-wrapper">
-									<select name="highlight" id="highlight">
+									<select name="one_beer" id="one_beer">
 										{% for x in beer_names %}
 										<option value="{{ x }}"
 										{% if loop.first %} SELECTED{% endif %}
@@ -87,11 +126,11 @@
 										{% endfor %}
 									</select>
 									</div>
-									<h3>Beer 2: </h3>
+									<p>Instead Compare to: </p>
 
 
 									<div class="select-wrapper">
-									<select name="highlight2" id="highlight2">
+									<select name="two_beer" id="two_beer">
 										{% for x in beer_names %}
 										<option value="{{ x }}"
 										{% if loop.first %} SELECTED{% endif %}
@@ -102,25 +141,25 @@
 								</div>
 
 								</br>
-								<h3>Or Find all beers with a similar name:</h3>
+								<h3>-- Or -- Find the beers that are associated with a name or beer term:</h3>
 								<div class="row uniform">
 									<div class="5u 12u$(xsmall)">
-										<input type="text" name="beer_name_search" id="beer_name_search" value="" placeholder="Beer Name Search (try 'callisto')"/>
+										<input type="text" name="beer_search" id="beer_search" value="" placeholder=" Search by Word (try Name = 'callisto' or Term = 'cherry')"/>
 									</div>
+									<div class="3u 2u$(small)">
+										<input type="radio" id="name_entry" name="search_option" value="name_entry" checked>
+										<label for="name_entry">Search Names</label>
+									</div>
+									<div class="3u 2u$(small)">
+										<input type="radio" id="term_entry" name="search_option" value="term_entry">
+										<label for="term_entry">Search Terms</label>
+									</div>
+
 								</div>
 
 								</br>
 
-								<h3>Or Find all beers associated with a search term:</h3>
-
-								<div class="row uniform">
-									<div class="5u 12u$(xsmall)">
-										<input type="text" name="beer_word" id="beer_word" value="" placeholder="Beer Search Term (try 'cherry')"/>
-									</div>
-								</div>
-
-								</br>
-								<h3>Or look at all beers in a topic:</h3>
+								<h3>-- Or -- look at a selection of beers from a topic:</h3>
 
 								<div class="row uniform">
                                     <div class="2u 2u$(small)">
