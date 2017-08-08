@@ -17,6 +17,8 @@ from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
 from sklearn.decomposition import NMF
 from collections import Counter
 from sklearn.decomposition import TruncatedSVD, PCA
+from sklearn.neighbors import NearestNeighbors
+
 
 if sys.version_info[0] == 3:
     version_folder = 'data3'
@@ -27,7 +29,8 @@ else:
 needed to change col name for all_text and get the beer names from the index of the df beers from pickle
 '''
 
-colors = ['c','midnightblue','purple','green','.2']
+colors = ['purple', 'green', 'midnightblue', '.2', 'gold','c', 'red', 'black']
+colors = colors + colors + colors
 
 drop_lst = ['aroma', 'note', 'notes', 'sl',
             'slight', 'light', 'hint', 'bit',
@@ -56,7 +59,8 @@ class NewBeer(object):
         beers = pd.read_pickle(read_file)
         self.df = beers
         self.text = beers['comment_text']
-        self.beer_names = beers['beer_name']
+        self.beer_names = beers['beer_name'].values
+        self.category = beers['category']
 
     def Transform(self, k = 5):
         self.k = k
@@ -115,20 +119,7 @@ class NewBeer(object):
 
     def Plot_radial(self,entry):
 
-        # based on the entry search, beer_list is a list of indecies to find those beers later
-        if type(entry) == int:
-            beer_list = np.argwhere(self.cluster_labels==entry).flatten()
-        # if string search in top terms for each beer
-        elif type(entry) == str and entry != '':
-            beer_list = [i for i, beer in enumerate(self.beer_top_terms) if entry in beer]
-            if beer_list == []:
-                return None
-        # if list of indecies beer_list = those indecies
-        elif type(entry) == list:
-            beer_list = entry
-        # default is cluster 0
-        else:
-            return None
+        beer_list = entry
 
         plt.style.use('fivethirtyeight')
         plt.figure(figsize = (14,9))
@@ -142,7 +133,8 @@ class NewBeer(object):
             ax.set_xticks(cluster_directions) #radial
             plt.sca(ax)
 
-            plt.xticks(cluster_directions, ['5', '1', '2', '3', '4'], color='black', fontsize = 10)
+            tick_labels = [str(self.k)] + [str(i+1) for i in range(self.k-1)]
+            plt.xticks(cluster_directions, tick_labels, color='black', fontsize = 10)
 
             ax.set_yticks([]) #radius magnitude
             ax.set_title(self.beer_names[i],fontsize = 12)
@@ -159,10 +151,11 @@ class NewBeer(object):
                 bar.set_alpha(0.75)
         plt.tight_layout()
 
+
         return beer_list
 
     # ------------ 2D Plotting ------------
-    def Plot_pca(self,beer_labels):
+    def Plot_pca(self,beer_labels,limited = None):
 
         pca = PCA(n_components=3) #3= 85.5%
         pca.fit(self.W)
@@ -170,6 +163,15 @@ class NewBeer(object):
         X = pca.transform(self.W)
         self.pca_transformation = X
         y = self.cluster_labels
+
+        if limited is not None:
+            X = X[limited]
+            y = y[limited]
+            limited_beer_names = self.beer_names[limited]
+            beer_labels = [i for i, idx in enumerate(limited) if idx in beer_labels]
+        else:
+            limited_beer_names = self.beer_names
+
 
         # labels for lagend = top 10 words
         labels = ['{}: '.format(i+1) + ', '.join(word) for i,word in enumerate(self.top_words)]
@@ -198,11 +200,11 @@ class NewBeer(object):
             beer_labels = np.random.choice(beer_labels,max_labels,replace = False)
         # if no labels randomly pick from all the beers
         else:
-            beer_labels = np.random.choice(len(self.beer_names),10,replace = False)
+            beer_labels = np.random.choice(len(limited_beer_names),10,replace = False)
         np.random.seed(42)
         # print the labels
         for i in beer_labels:
-            plt.annotate(self.beer_names[i], (X[:,0][i], X[:,1][i]))
+            plt.annotate(limited_beer_names[i], (X[:,0][i], X[:,1][i]))
 
         # limit the y axis to allow for the legend to fit
         plt.ylim(np.min(X[:,1])*1.2-.04*self.k, np.max(X[:,1])*1.2)
@@ -228,8 +230,8 @@ class NewBeer(object):
         ax = plt.subplot(projection='polar')
         ax.set_xticks(cluster_directions) #radial
         plt.sca(ax)
-
-        plt.xticks(cluster_directions, ['5', '1', '2', '3', '4'], color='black', fontsize = 10)
+        tick_labels = [str(i+1) for i in range(self.k-1)]
+        plt.xticks(cluster_directions, tick_labels, color='black', fontsize = 10)
 
         ax.set_yticks([]) #radius magnitude
         ax.set_title(self.beer_names[beer_index],fontsize = 12)
@@ -255,11 +257,24 @@ class NewBeer(object):
         df['beer_name'] = self.beer_names
 
         legend = pd.DataFrame(np.array(nb.top_words).T)
-        legend.columns = ['1','2','3','4','5']
+
+        legend.columns = [str(i+1) for i in range(self.k)]
         save_path = '{}/inter_files'.format(version_folder)
         df.to_csv('{}/d3_pca.csv'.format(save_path))
         legend.to_csv('{}/d3_legend.csv'.format(save_path))
         return df,legend
+
+    def Find_neighbors(self, beer_idx):
+
+        # plus 1 because it will find itself
+        nn = NearestNeighbors(100)
+
+        nn.fit(self.W)
+        beer = self.W[beer_idx].reshape(1,-1)
+        dists, idxs = nn.kneighbors(beer)
+
+        #[0] to return it as a flat list
+        return dists[0], idxs[0]
 
 
 if __name__ == '__main__':
@@ -271,9 +286,9 @@ if __name__ == '__main__':
     nb = NewBeer()
     nb.Fit(read_file)
     nb.Transform(k = n_clusters)
-    beers2label = nb.Plot_radial('puckering')
+    beers2label = nb.Plot_radial([3,13,23,24,34,45,56,67,78,89,90])
     nb.Plot_pca(beer_labels = beers2label)
     nb.Plot_one_beer(4)
-    nb.Plot_one_radial(9)
+    nb.Plot_one_radial(0)
 
-    plt.show()
+    # plt.show()
