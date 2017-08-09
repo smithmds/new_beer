@@ -231,10 +231,11 @@ def new_beer_plots():
 def updating():
 
     # folder = 'files/doc_files' #file to read the .doc new beers from
-    folder = '/oldcherry/shared/QA/Fort Collins/Sensory/P50s not in Sample Manager/Pilot Brewery'
-    rnb = ReadNewBeers(cold_start = False)
-    files, beers = rnb.Read_new_beer_files(folder)
-    text, names = rnb.Get_text_df()
+    folder = '../../media/sf_Brand_Descriptions'
+    rnb = ReadNewBeers(cold_start = True)#always cold for the time being
+    file_list = rnb.Get_files_from_folders(folder)
+    rnb.Read_new_beer_files(folder,from_list = True)
+    text = rnb.Get_text_df()
     # rnb.Find_bad_format_files(folder)
     rnb.Make_comment_dfs()
 
