@@ -56,7 +56,9 @@ class ReadNewBeers(object):
         # get only folders not files.
         sub_folders = [fold for fold in os.listdir(folder) if '.' not in fold]
 
-        self.file_names = [fold + '/' + file_name for fold in sub_folders for file_name in os.listdir(folder + '/' + fold) if file_name.split('.')[-1] == 'docx']
+        # only get .docx files that don't have a $ or ~ in the file name
+        # files are formated sub_folder/file_name
+        self.file_names = [fold + '/' + file_name for fold in sub_folders for file_name in os.listdir(folder + '/' + fold) if file_name.split('.')[-1] == 'docx' and '$' not in file_name and '~' not in file_name]
 
     def Read_new_beer_files(self,folder,from_list = False):
 

@@ -19,7 +19,6 @@ from fuzzywuzzy import process
 import time
 import sys
 
-# from StringIO import StringIO
 from py_files.ttb_violin import TTBViolin
 from py_files.sensitivity_violin import SensitivityViolin
 from py_files.df_limiting import limiting
@@ -46,10 +45,99 @@ def seeing_taste():
     return render_template('index.html',
         title = title_)
 
-@app.route('/update-all')
-def update_all():
-    return render_template('update-all.html',
-        title = title_)
+
+''' --- TASTER TOOL ---'''
+
+@app.route('/taster', methods=['GET'])
+def taster():
+    read_file = '{}/sensitivites.pkl'.format(version_folder)
+    sen = SensitivityViolin()
+    sen.Fit(read_file)
+
+    # to create the taster drop down
+    taster_name_lst = list(sen.df['full_name'].unique())
+    taster_name_lst.sort()
+    taster_name_lst = ['Taster Name Drop Down']+taster_name_lst
+    return render_template('taster.html',
+            title = title_,
+            taster_names = taster_name_lst)
+
+@app.route('/taster-plots', methods=['POST'] )
+def trust():
+    save_folder = 'static/images/plots'
+
+    # delete any plot image that exists in save_folder
+    for file_name in os.listdir(save_folder):
+        os.remove('{}/{}'.format(save_folder,file_name))
+
+    # request the taster names from the form
+    name = str(request.form['name'])
+    drop_name = str(request.form['taster_dropdown1'])
+    if name == '' and drop_name != 'Taster Name Drop Down':
+        name = drop_name
+
+    name2 = str(request.form['name2'])
+    drop_name2 = str(request.form['taster_dropdown2'])
+    if name2 == '' and drop_name2 != 'Taster Name Drop Down':
+        name2 = drop_name2
+
+    if name2 != '':
+        names = [name,name2]
+    else:
+        names = [name]
+
+    # ---- plot the ttb violin
+    read_file = '{}/trustworthiness_ratings.pkl'.format(version_folder)
+    ttb = TTBViolin(read_file)
+    choices = ttb.df_ttb.index.tolist()
+    names_out = [process.extractOne(name, choices)[0] for name in names]
+
+    ttb.plot_tasters(names_out)
+    save_ttb = '{}/ttb_violin_{}.png'.format(save_folder,int(time.time()))
+    plt.savefig(save_ttb)
+
+    # ---- sense plots
+    top = 10
+    update_file = 'files/attvalpiv.csv'
+    read_file = '{}/sensitivites.pkl'.format(version_folder)
+    sen = SensitivityViolin()
+    # sen.Update(update_file, save_path = read_file)
+    sen.Fit(read_file)
+    choices = sen.groups['full_name'].unique().tolist() #each have their own choices
+    name_out = process.extractOne(names[0], choices)[0]
+
+    sen.Plot_violin(name_out, 'percent_adj',top = top, na_thresh = 0)
+    save_sense = '{}/sense_violin_{}.png'.format(save_folder,int(time.time()))
+    plt.savefig(save_sense)
+
+    # ---- bias time plot
+    read_file = '{}/predict_validation.pkl'.format(version_folder)
+    pv = PredictValidation()
+    pv.Fit(read_file,
+            ttb_read_csv = None, # these three are for updating
+            spike_read_pkl = None,
+            save_file = None)
+    pv.Plot_bias(name_out)
+    save_bias = '{}/bias_plot_{}.png'.format(save_folder,int(time.time()))
+    plt.savefig(save_bias, facecolor = 'white')
+
+
+    # to create the taster drop down
+    taster_name_lst = list(sen.df['full_name'].unique())
+    taster_name_lst.sort()
+    taster_name_lst = ['Taster Name Drop Down']+taster_name_lst
+
+
+
+    return render_template('taster-plots.html',
+            title = title_,
+            ttb_fig = save_ttb,
+            sense_fig = save_sense,
+            bias_fig = save_bias,
+            taster_names = taster_name_lst)
+
+
+''' --- NEW BEER TOOL ---'''
 
 @app.route('/new-beer', methods=['GET'])
 def new_beer():
@@ -227,26 +315,8 @@ def new_beer_plots():
             top_beer2_words = top_beer_terms[1],
             categories_chosen = ' | '.join(cat_inputs))
 
-@app.route('/new-beer/updating', methods=['GET'])
-def updating():
 
-    # folder = 'files/doc_files' #file to read the .doc new beers from
-    folder = '../../media/sf_Brand_Descriptions'
-    rnb = ReadNewBeers(cold_start = True)#always cold for the time being
-    file_list = rnb.Get_files_from_folders(folder)
-    rnb.Read_new_beer_files(folder,from_list = True)
-    text = rnb.Get_text_df()
-    # rnb.Find_bad_format_files(folder)
-    rnb.Make_comment_dfs()
-
-    return '''
-                <html>
-                	<head>
-                		<title>Updated</title>
-                        <h1>Updating Complete</h1>
-                    </head>
-                </html>
-            '''
+''' --- EXPORT TOOL ---'''
 
 @app.route('/export', methods=['GET'])
 def export():
@@ -279,103 +349,12 @@ def exporting():
     return send_from_directory(directory = '{}/inter_files'.format(version_folder),
             filename='test_csv.csv')
 
-@app.route('/generic', methods=['GET'])
-def generic():
-    return render_template('generic.html',
-            title = title_)
+''' --- UPDATING ---'''
 
-@app.route('/elements', methods=['GET'])
-def elements():
-    return render_template('elements.html',
-            title = title_)
-
-@app.route('/taster', methods=['GET'])
-def taster():
-    read_file = '{}/sensitivites.pkl'.format(version_folder)
-    sen = SensitivityViolin()
-    sen.Fit(read_file)
-
-    # to create the taster drop down
-    taster_name_lst = list(sen.df['full_name'].unique())
-    taster_name_lst.sort()
-    taster_name_lst = ['Taster Name Drop Down']+taster_name_lst
-    return render_template('taster.html',
-            title = title_,
-            taster_names = taster_name_lst)
-
-@app.route('/taster-plots', methods=['POST'] )
-def trust():
-    save_folder = 'static/images/plots'
-
-    # delete any plot image that exists in save_folder
-    for file_name in os.listdir(save_folder):
-        os.remove('{}/{}'.format(save_folder,file_name))
-
-    # request the taster names from the form
-    name = str(request.form['name'])
-    drop_name = str(request.form['taster_dropdown1'])
-    if name == '' and drop_name != 'Taster Name Drop Down':
-        name = drop_name
-
-    name2 = str(request.form['name2'])
-    drop_name2 = str(request.form['taster_dropdown2'])
-    if name2 == '' and drop_name2 != 'Taster Name Drop Down':
-        name2 = drop_name2
-
-    if name2 != '':
-        names = [name,name2]
-    else:
-        names = [name]
-
-    # ---- plot the ttb violin
-    read_file = '{}/trustworthiness_ratings.pkl'.format(version_folder)
-    ttb = TTBViolin(read_file)
-    choices = ttb.df_ttb.index.tolist()
-    names_out = [process.extractOne(name, choices)[0] for name in names]
-
-    ttb.plot_tasters(names_out)
-    save_ttb = '{}/ttb_violin_{}.png'.format(save_folder,int(time.time()))
-    plt.savefig(save_ttb)
-
-    # ---- sense plots
-    top = 10
-    update_file = 'files/attvalpiv.csv'
-    read_file = '{}/sensitivites.pkl'.format(version_folder)
-    sen = SensitivityViolin()
-    # sen.Update(update_file, save_path = read_file)
-    sen.Fit(read_file)
-    choices = sen.groups['full_name'].unique().tolist() #each have their own choices
-    name_out = process.extractOne(names[0], choices)[0]
-
-    sen.Plot_violin(name_out, 'percent_adj',top = top, na_thresh = 0)
-    save_sense = '{}/sense_violin_{}.png'.format(save_folder,int(time.time()))
-    plt.savefig(save_sense)
-
-    # ---- bias time plot
-    read_file = '{}/predict_validation.pkl'.format(version_folder)
-    pv = PredictValidation()
-    pv.Fit(read_file,
-            ttb_read_csv = None, # these three are for updating
-            spike_read_pkl = None,
-            save_file = None)
-    pv.Plot_bias(name_out)
-    save_bias = '{}/bias_plot_{}.png'.format(save_folder,int(time.time()))
-    plt.savefig(save_bias, facecolor = 'white')
-
-
-    # to create the taster drop down
-    taster_name_lst = list(sen.df['full_name'].unique())
-    taster_name_lst.sort()
-    taster_name_lst = ['Taster Name Drop Down']+taster_name_lst
-
-
-
-    return render_template('taster-plots.html',
-            title = title_,
-            ttb_fig = save_ttb,
-            sense_fig = save_sense,
-            bias_fig = save_bias,
-            taster_names = taster_name_lst)
+@app.route('/update-all')
+def update_all():
+    return render_template('update-all.html',
+        title = title_)
 
 @app.route('/taster/updating', methods=['GET'])
 def taster_updating():
@@ -403,6 +382,40 @@ def taster_updating():
                     </head>
                 </html>
             '''
+
+@app.route('/new-beer/updating', methods=['GET'])
+def updating():
+
+    # folder = 'files/doc_files' #file to read the .doc new beers from
+    folder = '../../media/sf_Brand_Descriptions'
+    rnb = ReadNewBeers(cold_start = True)#always cold for the time being
+    file_list = rnb.Get_files_from_folders(folder)
+    rnb.Read_new_beer_files(folder,from_list = True)
+    text = rnb.Get_text_df()
+    # rnb.Find_bad_format_files(folder)
+    rnb.Make_comment_dfs()
+
+    return '''
+                <html>
+                	<head>
+                		<title>Updated</title>
+                        <h1>Updating Complete</h1>
+                    </head>
+                </html>
+            '''
+
+''' --- GENERIC ---'''
+
+@app.route('/generic', methods=['GET'])
+def generic():
+    return render_template('generic.html',
+            title = title_)
+
+@app.route('/elements', methods=['GET'])
+def elements():
+    return render_template('elements.html',
+            title = title_)
+
 
 if __name__ == '__main__':
 
