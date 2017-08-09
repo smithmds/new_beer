@@ -58,7 +58,7 @@ class SensitivityViolin(object):
 
         #still need updating for this
         elif read_file.split('.')[-1] == 'xlsx':
-            df = pd.read_excel(read_file, sheetname = 'Attributes Source')
+            df = pd.read_excel(read_file, sheetname = 1)
 
         df.columns = [re.sub(' ','_',col.lower()) for col in df.columns.tolist()]
 
