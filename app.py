@@ -381,12 +381,12 @@ def taster_updating():
 
     # ---- update sensitivites
     # read_file = 'files/attvalpiv.csv'
-    read_file = '~/S:/QA/Fort Collins/Sensory/P50s not in Sample Manager/Sensory Scientists Only/attvalpiv.xlsx'
+    read_file = '../../media/sf_Sensory_Scientists_Only/attvalpiv.xlsx'
     save_file = '{}/sensitivites.pkl'.format(version_folder)
     sen = SensitivityViolin()
     sen.Update(read_file,save_file)
 
-    # # ---- update bias time plots
+    # ---- update bias time plots
     # spike_read_pkl = '{}/sensitivites.pkl'.format(version_folder) # sensitivites_violin.py
     # ttb_read_csv = '{}/foco_cleaned_df.csv'.format(version_folder) # taster_spreadsheet.py
     # time_save_pkl = '{}/predict_validation.pkl'.format(version_folder)

@@ -52,6 +52,10 @@ class BinomialProbability(object):
 
 
     def Get_data(self,read_folder):
+        '''
+        reads in the data
+        '''
+
         time_file = read_folder + '/predict_validation.pkl'
         bytime = pd.read_pickle(time_file)
         self.bytime = bytime
@@ -79,15 +83,19 @@ class BinomialProbability(object):
         p_not_chance = np.cumsum(bi_dist)
         min_n_not_ttb = np.argwhere(p_not_chance > self.alpha).flatten()[0]
 
-
         n_not_ttb = int(validated['mcFresh'].sum())
         return [n_not_ttb,
                 min_n_not_ttb,
                 my_round(p_not_chance[min_n_not_ttb],3),
-                len(val_tasters),
-                my_round(bias_lst.mean())]
+                int(len(val_tasters)),
+                my_round(bias_lst.mean()),
+                my_round(p_not_chance[n_not_ttb])]
 
     def Get_p_all(self):
+        '''
+        gets all the data for each brewnumber in the file
+        use to compare this method to others
+        '''
         brew_numbers = self.foco['BrewNumber'].unique()
         # p_all = [self.P_one(brew_num) for brew_num in brew_numbers[last:]]
 
@@ -99,7 +107,7 @@ class BinomialProbability(object):
                 p_all.append([np.NAN,np.NAN,np.NAN,np.NAN,np.NAN])
 
         pdf = pd.DataFrame(p_all)
-        pdf.columns = ['n_!ttb','min_n','min_confidence','panel_size', 'mean_bias']
+        pdf.columns = ['n_!ttb','min_n','min_confidence','panel_size', 'mean_bias','prob']
         pdf.index = brew_numbers
         return pdf
 
@@ -118,8 +126,13 @@ if __name__ == '__main__':
     a = [marie,billy,dana,soren]
 
     bp = BinomialProbability(99, months = 12)
-    bp.Get_data('../{}'.format(version_folder))
+    bp.Get_data(version_folder)
     p = bp.P_one(160109081)
+
+
+    # sys.exit("Error message")
+    # all brew_numbers
+    print('getting probs for all brew numbers')
     al = bp.Get_p_all()
 
     # removing bad brew numbers
@@ -130,4 +143,5 @@ if __name__ == '__main__':
     al = al[al['index'] <= brew_number_limits[1]]
     al.sort_values('index',inplace = True)
 
+    # just the bad ones aka likely not TTB
     bad = al[al['n_!ttb']>=al['min_n']]

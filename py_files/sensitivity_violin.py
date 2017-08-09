@@ -53,11 +53,11 @@ class SensitivityViolin(object):
         pass
 
     def Update(self,read_file,save_path = None):
-        if read_file.split['.'][-1] == 'csv':
+        if read_file.split('.')[-1] == 'csv':
             df = pd.read_csv(read_file, encoding = 'latin1')
 
         #still need updating for this
-        elif read_file.split['.'][-1] == 'xlsx':
+        elif read_file.split('.')[-1] == 'xlsx':
             df = pd.read_excel(read_file, sheetname = 'Attributes Source')
 
         df.columns = [re.sub(' ','_',col.lower()) for col in df.columns.tolist()]
@@ -195,13 +195,13 @@ if __name__ == '__main__':
 
 
     if sys.version_info[0] == 3:
-        save_file = '../data3/sensitivites.pkl'
+        save_file = 'data3/sensitivites.pkl'
     else:
-        save_file = '../data/sensitivites.pkl'
+        save_file = 'data/sensitivites.pkl'
 
 
     sen = SensitivityViolin()
-    # sen.Update('../files/attvalpiv.csv', save_path = save_file)
+    # sen.Update('files/attvalpiv.csv', save_path = save_file)
     sen.Fit(save_file)
     taster_name = 'soren daugaard' # soren_daugaard is very good score of .75
     sen.Plot_violin(taster_name, 'percent_adj',top = 10, na_thresh = 10)

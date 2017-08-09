@@ -119,20 +119,21 @@ class ReadNewBeers(object):
         self.beer_tables = beers
         self.beer_names = np.array(beer_names)[ifiles]
         self.good_files = np.array(self.file_names)[ifiles]
-        # self.ifiles = np.array(ifiles)
-        #
-        # # either update the files or save them fresh (cold start)
+
+
+        ### cold start everytime for the time being
+        # either update the files or save them fresh (cold start)
         # file_path_df = '{}/inter_files/docx_to_dfs.pkl'.format(version_folder)
-        # self.beer_tables = self.Update_inter_file(file_path_df,beers)
-        #
+        # self.beer_tables = self.Update_inter_file(file_path_df,self.beer_tables)
+        # #
         # file_path_df = '{}/inter_files/file_names.pkl'.format(version_folder)
-        # self.file_names = self.Update_inter_file(file_path_df,file_names)
+        # self.good_files = self.Update_inter_file(file_path_df,self.good_files)
 
         # return self.file_names, self.beer_tables
 
     def Get_text_df(self):
         '''
-        turns the raw table data into a data frame of comments
+        turns the raw table list data into a data frame of comments
         '''
         text_names = self.wanted_comments
         beer_names = []
@@ -192,8 +193,9 @@ class ReadNewBeers(object):
 
 if __name__ == '__main__':
 
+    ### for right now cold start every time!
     folder = 'files/doc_files' # .doc new beer files
-    rnb = ReadNewBeers(cold_start = False)
+    rnb = ReadNewBeers(cold_start = True)
     file_list = rnb.Get_files_from_folders('files/Brand Descriptions')
     rnb.Read_new_beer_files('files/Brand Descriptions',from_list = True)
 
